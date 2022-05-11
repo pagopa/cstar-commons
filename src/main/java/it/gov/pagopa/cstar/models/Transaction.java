@@ -49,7 +49,7 @@ public class Transaction {
   @NotBlank
   @CsvBindByPosition(position = 3)
   @Pattern(regexp = "[a-zA-Z0-9]{64}",
-      message = "HPAN length must be 64 alphanumeric alphanumeric char")
+      message = "HPAN length must be 64 alphanumeric char")
   @JsonProperty(value = "hpan", required = true)
   String hpan;
 
