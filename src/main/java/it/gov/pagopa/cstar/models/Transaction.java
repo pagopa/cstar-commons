@@ -56,7 +56,7 @@ public class Transaction {
   //ISO8601
   @NotNull
   @CsvBindByPosition(position = 4)
-  @CsvDate(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @CsvDate(value = "yyyy-MM-dd'T'HH:mm:ss.SSS[XX][XXX]")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   @JsonSerialize(using = OffsetDateTimeSerializer.class)
   @JsonProperty(value = "trxDate", required = true)
