@@ -137,7 +137,7 @@ public class Transaction {
   String mcc;
 
   @CsvBindByPosition(position = 15)
-  @Pattern(regexp = "[a-zA-Z0-9]{0,50}",
+  @Pattern(regexp = "[a-zA-Z0-9]{0,16}",
       message = "Fiscal code length must be 5 alphanumeric char at max")
   @JsonProperty(value = "fiscalCode")
   String fiscalCode;
