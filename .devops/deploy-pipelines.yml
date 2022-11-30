@@ -1,0 +1,42 @@
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+# Only manual triggers
+trigger: none
+pr: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+#resources:
+#  pipelines:
+#    - pipeline: bpdMsStarterParent
+#      source: pagopa.bpd-ms-starter-parent
+#      trigger:
+#        branches:
+#          include:
+#            - develop
+#            - feature/*
+#            - features/*
+
+steps:
+  - task: DownloadSecureFile@1
+    displayName: 'download settings.xml for Maven'
+    name: settingsxml
+    inputs:
+      secureFile: 'settings-rw.xml'
+      retryCount: '2'
+  - task: Maven@3
+    displayName: Build and Deploy Artifacts
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'deploy'
+      options: '-s $(settingsxml.secureFilePath) -DskipTests=true -DaltDeploymentRepository=cstar::default::https://pkgs.dev.azure.com/pagopaspa/cstar-projects/_packaging/cstar/maven/v1'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      mavenVersionOption: 'Default'
+      mavenOptions: '-Xmx3072m'
+      mavenAuthenticateFeed: true
+      effectivePomSkip: true
+      sonarQubeRunAnalysis: false
